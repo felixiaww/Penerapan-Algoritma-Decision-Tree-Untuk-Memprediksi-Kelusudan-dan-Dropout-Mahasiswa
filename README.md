@@ -1,4 +1,4 @@
-# Machine Learning: Prediksi Status Akademik Mahasiswa
+# Penerapan Algoritma Decision Tree Classifier dalam Memprediksi Status Kelulusan dan Risiko Dropout Mahasiswa
 
 ## Deskripsi Proyek
 
