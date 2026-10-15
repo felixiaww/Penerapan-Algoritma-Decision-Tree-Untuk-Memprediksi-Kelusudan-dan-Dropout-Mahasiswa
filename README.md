@@ -171,17 +171,6 @@ Secara ringkas, alur pengerjaan pada notebook adalah:
 10. Mengevaluasi hasil klasifikasi.
 11. Menyimpan model ke file `.pkl`.
 
-## Catatan Teknis
-
-Dokumentasi ini mengikuti tahapan yang terdapat pada notebook. Ada beberapa hal yang perlu diperhatikan ketika hasilnya dikembangkan lebih lanjut:
-
-- Dataset resmi UCI memiliki 4.424 observasi, sedangkan notebook menggunakan 948 observasi pada tahap pemodelan. Pengurangan jumlah data terjadi dalam alur preprocessing, terutama pada penyaringan outlier.
-- Dataset dimuat ulang pada tahap analisis outlier sehingga preprocessing missing values sebelumnya tidak seluruhnya menjadi input tahap selanjutnya.
-- Standardisasi dan penyaringan outlier dilakukan sebelum pembagian data training dan testing. Untuk evaluasi yang lebih ketat, tahapan preprocessing sebaiknya dipelajari hanya dari data latih menggunakan pipeline agar risiko data leakage dapat dikurangi.
-- Kolom kategorikal diubah menggunakan Label Encoding, yang memberikan representasi angka pada kategori. Angka tersebut tidak selalu menunjukkan urutan atau jarak yang bermakna.
-- File model `.pkl` saja belum mencakup seluruh langkah preprocessing yang dibutuhkan untuk menerima data baru secara konsisten.
-
-Catatan ini penting agar hasil eksperimen dapat dipahami dengan benar dan tidak dianggap sebagai sistem prediksi siap produksi.
 
 ## Kesimpulan
 
@@ -189,7 +178,12 @@ Proyek ini menunjukkan penerapan dasar Machine Learning untuk klasifikasi status
 
 Model memperoleh akurasi sebesar **61,58%** pada data uji yang digunakan di notebook. Hasil ini dapat dijadikan dasar untuk pembelajaran dan pengembangan lanjutan, terutama dalam perbaikan preprocessing, pengendalian data leakage, dan evaluasi model yang lebih menyeluruh.
 
-## Referensi
+## Sumber
 
-1. Realinho, V., Vieira Martins, M., Machado, J., & Baptista, L. (2021). *Predict Students' Dropout and Academic Success*. UCI Machine Learning Repository. https://doi.org/10.24432/C5MC89
-2. UCI Machine Learning Repository — https://archive.ics.uci.edu/dataset/697/predict+students+dropout+and+academic+success
+Judul Dataset: Predict Students' Dropout and Academic Success (Higher Education Predictors of Student Retention)
+
+Pengunggah / Publisher di Kaggle: The Devastator
+
+Link Dataset: Kaggle - Higher Education Predictors of Student Retention
+
+Deskripsi Singkat: Dataset ini mencakup data akademik, demografi, serta faktor sosial-ekonomi mahasiswa (seperti status perkawinan, kualifikasi orang tua, tingkat pengeluaran/biaya kuliah, dan nilai semester) untuk memprediksi retensi serta tingkat kelulusan/dropout mahasiswa (Dropout, Enrolled, Graduate).
