@@ -1,191 +1,272 @@
 # Penerapan Algoritma *Decision Tree Classifier* dalam Memprediksi Status Kelulusan dan Risiko *Dropout* Mahasiswa
 
 ## Deskripsi Proyek
+Proyek ini merupakan implementasi Machine Learning untuk melakukan klasifikasi status akademik mahasiswa menggunakan algoritma Decision Tree Classifier. Model dibangun dengan memanfaatkan dataset Predict Students' Dropout and Academic Success yang berisi informasi terkait latar belakang mahasiswa, proses penerimaan, serta performa akademik.
 
-Proyek ini merupakan implementasi *machine learning* menggunakan algoritma **Decision Tree Classifier** untuk melakukan klasifikasi status akademik mahasiswa berdasarkan dataset *Predict Students' Dropout and Academic Success*.
+Tujuan proyek ini adalah mempelajari penerapan tahapan Machine Learning, mulai dari eksplorasi data, preprocessing, visualisasi, pembentukan model klasifikasi, evaluasi performa, hingga penyimpanan model dalam format .pkl.
 
-Tujuan proyek ini adalah mempelajari penerapan metode klasifikasi dalam menganalisis data mahasiswa dan memprediksi kategori pada variabel target (`Target`). Pendekatan ini dapat digunakan untuk mengeksplorasi hubungan antara karakteristik mahasiswa dan status akademiknya, serta memahami bagaimana algoritma *Decision Tree* menghasilkan prediksi berdasarkan pola yang ditemukan dalam data.
+Model menggunakan kolom Target sebagai variabel yang diprediksi. Dataset aslinya memiliki tiga kategori status akademik, yaitu Dropout, Enrolled, dan Graduate.
 
-Proyek dikembangkan menggunakan Python melalui Jupyter Notebook, mulai dari eksplorasi data, preprocessing, visualisasi, pembagian data latih dan data uji, pelatihan model, evaluasi performa, hingga penyimpanan model.
+Tujuan
 
-## Tujuan Proyek
+Memahami karakteristik dataset mahasiswa melalui eksplorasi data.
 
-1. Memahami karakteristik dan struktur dataset mahasiswa.
-2. Melakukan preprocessing untuk mempersiapkan data sebelum pemodelan.
-3. Menganalisis distribusi data dan hubungan antarvariabel melalui visualisasi.
-4. Menerapkan algoritma *Decision Tree Classifier* untuk klasifikasi status akademik mahasiswa.
-5. Mengevaluasi hasil klasifikasi menggunakan metrik evaluasi yang tersedia pada Scikit-learn.
-6. Menyimpan model yang telah dilatih agar dapat digunakan kembali.
+Melakukan preprocessing untuk mempersiapkan data sebelum pemodelan.
 
-## Dataset
+Memvisualisasikan distribusi data dan korelasi antarvariabel.
 
-Dataset yang digunakan bernama **Predict Students' Dropout and Academic Success.csv**.
+Membangun model klasifikasi menggunakan Decision Tree.
 
-Dataset dibaca menggunakan Pandas dan digunakan sebagai sumber data untuk proses analisis serta pemodelan. Variabel `Target` ditetapkan sebagai variabel yang akan diprediksi, sedangkan kolom lainnya digunakan sebagai fitur masukan.
+Mengevaluasi hasil prediksi menggunakan metrik klasifikasi.
 
-File dataset harus tersedia di lokasi yang sesuai dengan path pada source code agar notebook dapat dijalankan. Dataset tidak otomatis tersedia hanya dengan mengunduh file notebook ini.
+Menyimpan model yang telah dilatih agar dapat digunakan kembali.
 
-## Teknologi dan Library
+Sumber Dataset
 
-- **Python** — bahasa pemrograman untuk pengolahan data dan implementasi machine learning.
-- **Jupyter Notebook** — lingkungan untuk menjalankan kode secara bertahap.
-- **Pandas** — membaca, mengolah, dan menganalisis data dalam bentuk DataFrame.
-- **Matplotlib** — membuat grafik dan visualisasi data.
-- **Seaborn** — membuat visualisasi statistik, seperti box plot dan heatmap.
-- **Scikit-learn** — melakukan preprocessing, membagi dataset, membangun model klasifikasi, dan mengevaluasi prediksi.
-- **Joblib** — menyimpan model yang telah dilatih ke dalam file `.pkl`.
+Dataset yang digunakan adalah Predict Students' Dropout and Academic Success, yang tersedia melalui UCI Machine Learning Repository.
 
-## Tahapan Pengerjaan
+Sumber resmi: https://archive.ics.uci.edu/dataset/697/predict+students+dropout+and+academic+success
 
-### 1. Memuat dan Mengeksplorasi Dataset
+Dataset ini dikembangkan berdasarkan data dari sebuah institusi pendidikan tinggi dan mencakup informasi mahasiswa dari berbagai program studi. Variabelnya meliputi informasi penerimaan, karakteristik demografis, kondisi sosial ekonomi, serta performa akademik pada semester pertama dan kedua.
 
-Dataset dimuat menggunakan `pandas.read_csv()`. Selanjutnya, dilakukan pemeriksaan beberapa bagian data, informasi tipe kolom, statistik deskriptif, dan jumlah nilai yang hilang.
+Berdasarkan dokumentasi UCI, dataset asli memiliki 4.424 baris data dan 36 fitur, dengan Target sebagai variabel klasifikasi. Dataset tersebut telah melalui proses preprocessing oleh penyedia aslinya.
 
-Tahap ini bertujuan untuk memahami struktur dataset sebelum dilakukan pengolahan lebih lanjut.
+Referensi dataset:
 
-### 2. Preprocessing Data
+Realinho, V., Vieira Martins, M., Machado, J., & Baptista, L. (2021). Predict Students' Dropout and Academic Success [Dataset]. UCI Machine Learning Repository. https://doi.org/10.24432/C5MC89
 
-Preprocessing dilakukan melalui beberapa proses berikut:
+Lisensi dataset: Creative Commons Attribution 4.0 International (CC BY 4.0).
 
-- **Penanganan missing values:** kode awal mengisi nilai yang hilang pada kolom numerik menggunakan median dan pada kolom kategorikal menggunakan modus. Kolom dengan jumlah nilai hilang minimal 1.000 juga dipisahkan untuk dihapus dari DataFrame pada tahap tersebut.
-- **Deteksi outlier:** menggunakan metode *Interquartile Range* (IQR) dengan batas 1,5 kali IQR untuk mengidentifikasi dan menyaring baris yang memiliki outlier pada fitur numerik.
-- **Standardisasi:** menggunakan `StandardScaler` untuk melakukan standardisasi terhadap fitur numerik.
-- **Pemeriksaan duplikasi:** mengidentifikasi dan menghapus baris duplikat.
-- **Encoding data kategorikal:** menerapkan `LabelEncoder` untuk mengubah nilai kategorikal menjadi representasi numerik.
+Teknologi dan Library
 
-Kode juga menerapkan `pd.get_dummies()` sebagai proses *One-Hot Encoding* dan melakukan pemeriksaan ulang terhadap nilai yang hilang.
+Proyek ini menggunakan Python dengan beberapa library berikut:
 
-### 3. Analisis dan Visualisasi Data
+Pandas — membaca, mengolah, dan menganalisis data dalam bentuk DataFrame.
 
-Tahap eksplorasi data dilakukan menggunakan Matplotlib dan Seaborn. Visualisasi yang terdapat dalam notebook meliputi:
+Seaborn — membuat visualisasi distribusi data, boxplot, dan heatmap.
 
-- Box plot untuk mengamati distribusi dan outlier.
-- Histogram untuk melihat distribusi variabel.
-- Heatmap untuk menampilkan korelasi antarvariabel.
-- Bar plot untuk menampilkan korelasi absolut setiap variabel terhadap `Target`.
+Matplotlib — menampilkan grafik dan visualisasi hasil analisis.
 
-Visualisasi tersebut membantu memahami karakteristik data dan hubungan antarvariabel sebelum proses klasifikasi.
+Scikit-learn — melakukan encoding, standardisasi, pembagian data, pembuatan model, dan evaluasi klasifikasi.
 
-### 4. Menentukan Fitur dan Target
+Joblib — menyimpan model Machine Learning ke dalam file .pkl.
 
-Data dipisahkan menjadi dua bagian:
+Tahapan Pengerjaan
 
-- **X (fitur):** seluruh kolom selain `Target`.
-- **y (target):** kolom `Target` yang menjadi label klasifikasi.
+1. Memuat Dataset
 
-Pemisahan ini diperlukan agar model mempelajari hubungan antara fitur masukan dan label yang akan diprediksi.
+Dataset dibaca dari file CSV menggunakan pandas.read_csv(). Notebook menggunakan nama file:
 
-### 5. Membagi Data Latih dan Data Uji
+Predict Students' Dropout and Academic Success.csv
 
-Notebook menggunakan fungsi `train_test_split()` untuk membagi data dengan konfigurasi:
+Data kemudian diperiksa untuk melihat contoh baris, tipe data, jumlah data, serta ringkasan statistik deskriptif.
 
-- Data latih: 80%.
-- Data uji: 20%.
-- `random_state=1` untuk menjaga konsistensi pembagian data ketika dijalankan kembali pada kondisi yang sama.
+2. Eksplorasi Data
 
-Data latih digunakan untuk membangun model, sedangkan data uji digunakan untuk mengevaluasi hasil prediksi pada data yang tidak digunakan dalam pelatihan.
+Eksplorasi dilakukan menggunakan DataFrame.info() dan describe(include="all"). Tahapan ini digunakan untuk memahami struktur dataset, tipe variabel, jumlah observasi, dan statistik deskriptif sebelum analisis lanjutan.
 
-### 6. Membangun Model Decision Tree Classifier
+3. Pemeriksaan Missing Values
 
-Model dibuat menggunakan `DecisionTreeClassifier` dari Scikit-learn dengan konfigurasi `random_state=42`.
+Notebook memeriksa nilai yang hilang pada setiap kolom. Pada bagian preprocessing awal, nilai yang hilang pada kolom numerik diisi menggunakan median, sedangkan kolom kategorikal diisi menggunakan modus. Kolom dengan jumlah missing values minimal 1.000 juga ditentukan untuk dihapus.
 
-Model dilatih menggunakan `x_train` dan `y_train` melalui metode `fit()`. Setelah pelatihan, model menghasilkan prediksi terhadap `x_test` menggunakan metode `predict()`.
+Namun, dataset yang dimuat ulang pada tahapan analisis berikutnya tercatat tidak memiliki missing values. Selain itu, proses pemuatan ulang tersebut membuat hasil preprocessing awal tidak seluruhnya digunakan dalam tahapan berikutnya.
 
-Algoritma *Decision Tree* membangun struktur keputusan berdasarkan fitur dalam dataset untuk menentukan kelas prediksi. Hasil klasifikasi bergantung pada pola yang dipelajari dari data pelatihan.
+4. Deteksi dan Penanganan Outlier
 
-### 7. Evaluasi Model
+Outlier diperiksa menggunakan boxplot dan metode Interquartile Range (IQR). Batas deteksi dihitung berdasarkan kuartil pertama (Q1), kuartil ketiga (Q3), dan rentang antarkuartil (IQR).
 
-Performa model dievaluasi menggunakan beberapa komponen:
+Baris yang memiliki nilai di luar batas IQR pada setidaknya satu fitur numerik dikeluarkan dari data yang digunakan pada tahap tersebut. Setelah itu, boxplot kembali dibuat untuk melihat distribusi data setelah penyaringan.
 
-- **Accuracy Score:** mengukur proporsi prediksi yang benar terhadap seluruh data uji.
-- **Classification Report:** menampilkan metrik klasifikasi, termasuk precision, recall, F1-score, dan support untuk setiap kelas.
-- **Confusion Matrix:** membandingkan label aktual dengan label hasil prediksi untuk melihat pola klasifikasi yang benar maupun salah.
+5. Standardisasi Data Numerik
 
-Nilai evaluasi yang sebenarnya diperoleh ketika notebook dijalankan. Dokumentasi ini tidak mencantumkan angka akurasi tertentu karena nilai hasil eksekusi tidak dijadikan dasar dalam penulisan ini.
+Standardisasi dilakukan menggunakan StandardScaler dari Scikit-learn. Proses ini mengubah skala fitur numerik agar memiliki rata-rata mendekati 0 dan standar deviasi mendekati 1.
 
-### 8. Menyimpan Model
+Notebook juga menampilkan histogram sebelum dan sesudah standardisasi untuk membandingkan distribusi salah satu fitur numerik.
 
-Model disimpan menggunakan library Joblib ke dalam file:
+6. Pemeriksaan Data Duplikat
 
-`model_decision_tree.pkl`
+Baris duplikat diperiksa menggunakan DataFrame.duplicated(). Baris yang teridentifikasi sebagai duplikat kemudian dihapus menggunakan drop_duplicates().
 
-Penyimpanan dilakukan dengan `joblib.dump()` setelah model dilatih. File tersebut berfungsi sebagai artefak model yang dapat dimuat kembali untuk penggunaan selanjutnya, dengan memperhatikan kesesuaian preprocessing dan struktur fitur yang digunakan saat pelatihan.
+7. Encoding Variabel Kategorikal
 
-## Struktur Proyek
+Notebook menerapkan dua pendekatan encoding:
 
-Struktur file yang dapat digunakan untuk menyimpan proyek di GitHub adalah sebagai berikut:
+One-Hot Encoding menggunakan pandas.get_dummies().
 
-```text
-decision-tree-classifier-mahasiswa/
-├── Machine Learning Mahasiswa.ipynb
-├── Predict Students' Dropout and Academic Success.csv
-├── model_decision_tree.pkl
-└── README.md
-```
+Label Encoding menggunakan LabelEncoder dari Scikit-learn.
 
-Keterangan:
+Hasil Label Encoding disimpan dalam DataFrame df_lencoder dan digunakan sebagai dasar untuk tahapan analisis korelasi serta pemodelan berikutnya.
 
-- `Machine Learning Mahasiswa.ipynb`: notebook yang berisi source code, preprocessing, visualisasi, pelatihan, dan evaluasi model.
-- `Predict Students' Dropout and Academic Success.csv`: dataset yang dibutuhkan untuk menjalankan notebook.
-- `model_decision_tree.pkl`: file model hasil pelatihan, jika notebook telah dijalankan hingga tahap penyimpanan.
-- `README.md`: dokumentasi proyek.
+8. Visualisasi dan Analisis Korelasi
 
-File dataset dan model `.pkl` tidak otomatis dibuat hanya dengan menyalin source code notebook. Keduanya perlu disediakan atau dihasilkan melalui proses yang sesuai.
+Beberapa visualisasi dibuat untuk memahami karakteristik data, yaitu:
 
-## Cara Menjalankan Proyek
+Histogram untuk melihat distribusi setiap variabel.
 
-### 1. Persiapkan Lingkungan
+Histogram beberapa fitur numerik.
 
-Pastikan Python dan Jupyter Notebook telah tersedia pada perangkat.
+Heatmap untuk melihat korelasi antarvariabel.
 
-### 2. Instal Library
+Bar plot untuk menampilkan korelasi absolut setiap variabel terhadap Target.
 
-Jalankan perintah berikut pada terminal:
+Visualisasi tersebut membantu mengeksplorasi pola data. Nilai korelasi sendiri tidak membuktikan hubungan sebab-akibat.
 
-```bash
-pip install pandas numpy matplotlib seaborn scikit-learn joblib notebook
-```
+9. Pemisahan Fitur dan Target
 
-### 3. Siapkan Dataset
+Variabel dipisahkan menjadi dua bagian:
 
-Tempatkan file `Predict Students' Dropout and Academic Success.csv` pada lokasi yang sesuai dengan path yang digunakan di dalam notebook.
+X: seluruh fitur selain kolom Target.
 
-### 4. Jalankan Notebook
+y: kolom Target sebagai label yang akan diprediksi.
 
-Buka `Machine Learning Mahasiswa.ipynb` menggunakan Jupyter Notebook atau lingkungan lain yang mendukung file `.ipynb`.
+Dataset kemudian dibagi menggunakan train_test_split() dengan proporsi 80% untuk data latih dan 20% untuk data uji. Parameter random_state=1 digunakan agar pembagian data dapat direproduksi.
 
-Jalankan setiap sel kode sesuai urutannya. Jika proses berhasil dan sel penyimpanan model dijalankan, model akan disimpan sebagai `model_decision_tree.pkl`.
+10. Pembuatan dan Pelatihan Model
 
-## Hasil yang Diharapkan
+Algoritma yang digunakan adalah DecisionTreeClassifier dari Scikit-learn.
 
-Berdasarkan fungsi yang ditulis dalam notebook, proses ini menghasilkan:
+Model diinisialisasi dengan random_state=42, kemudian dilatih menggunakan x_train dan y_train. Setelah pelatihan, model menghasilkan prediksi terhadap x_test.
 
-1. Informasi struktur dan statistik dataset.
-2. Visualisasi distribusi, outlier, dan korelasi data.
-3. Data latih dan data uji untuk klasifikasi.
-4. Model klasifikasi menggunakan *Decision Tree Classifier*.
-5. Hasil prediksi pada data uji.
-6. Laporan evaluasi berupa accuracy score, classification report, dan confusion matrix.
-7. File model hasil pelatihan dalam format `.pkl`.
+Decision Tree melakukan klasifikasi berdasarkan aturan keputusan yang dibentuk dari fitur-fitur data selama proses pelatihan.
 
-Hasil aktual, termasuk nilai akurasi dan kemampuan model dalam membedakan setiap kelas, perlu dilihat dari hasil eksekusi notebook.
+11. Evaluasi Model
 
-## Catatan Implementasi
+Evaluasi dilakukan menggunakan:
 
-Beberapa tahapan preprocessing dalam notebook perlu diperhatikan ketika proyek dikembangkan lebih lanjut. Pada salah satu sel, dataset dimuat kembali ke variabel `df` dari file CSV asli. Akibatnya, hasil penanganan missing values pada sel sebelumnya tidak otomatis diteruskan ke tahap pemodelan.
+Accuracy Score untuk mengukur proporsi prediksi yang benar.
 
-Notebook juga membuat hasil One-Hot Encoding, tetapi variabel yang digunakan dalam pemodelan berikutnya adalah `df_lencoder`, yang dibentuk melalui Label Encoding. Oleh karena itu, kedua metode encoding tersebut tidak digunakan secara bersamaan sebagai fitur model pada tahap akhir.
+Classification Report untuk menampilkan precision, recall, dan F1-score setiap kelas.
 
-Selain itu, pemfilteran outlier dan standardisasi perlu diperiksa kembali agar daftar fitur numerik tetap sesuai dengan kolom yang tersedia. Untuk penggunaan prediksi pada data baru, seluruh langkah preprocessing sebaiknya disusun secara konsisten dan dipelajari hanya dari data latih guna menghindari kebocoran informasi (*data leakage*).
+Confusion Matrix untuk membandingkan label aktual dengan hasil prediksi model.
 
-Catatan ini penting agar hasil evaluasi dapat ditafsirkan secara tepat dan model dapat digunakan kembali dengan proses yang konsisten.
+Berdasarkan output yang tersimpan di notebook, hasil evaluasi model adalah:
 
-## Kesimpulan
+Metrik
 
-Proyek ini menerapkan algoritma *Decision Tree Classifier* sebagai metode klasifikasi untuk menganalisis dan memprediksi variabel `Target` pada dataset mahasiswa. Tahapannya mencakup eksplorasi data, preprocessing, visualisasi, pembagian data, pelatihan model, evaluasi, dan penyimpanan model.
+Hasil
 
-Melalui proyek ini, proses penerapan machine learning pada data pendidikan dapat dipelajari secara terstruktur. Namun, penggunaan model sebagai sistem peringatan dini bagi mahasiswa yang berisiko *dropout* masih memerlukan evaluasi lebih lanjut, validasi hasil, dan pengujian pada data yang sesuai sebelum digunakan untuk mendukung pengambilan keputusan.
+Akurasi
 
-## Author
+61,58%
 
-Dikembangkan sebagai proyek pembelajaran dan penerapan *Machine Learning* menggunakan Python dan Scikit-learn.
+Jumlah data setelah preprocessing yang digunakan untuk pemodelan
+
+948
+
+Data latih
+
+758
+
+Data uji
+
+190
+
+Akurasi tersebut merupakan hasil pada pembagian data uji yang digunakan dalam notebook, bukan jaminan performa pada seluruh populasi mahasiswa.
+
+Classification Report:
+
+Label hasil encoding
+
+Precision
+
+Recall
+
+F1-score
+
+Support
+
+0
+
+0,36
+
+0,57
+
+0,44
+
+23
+
+1
+
+0,47
+
+0,44
+
+0,45
+
+48
+
+2
+
+0,76
+
+0,70
+
+0,73
+
+119
+
+Label 0, 1, dan 2 merupakan hasil encoding dari kelas pada kolom Target. Nilai tersebut tidak dituliskan sebagai nama kelas tertentu karena pemetaan label tidak ditampilkan secara eksplisit dalam laporan evaluasi notebook.
+
+Hasil evaluasi menunjukkan bahwa performa model berbeda pada setiap kelas. Oleh karena itu, akurasi perlu dibaca bersama precision, recall, F1-score, dan confusion matrix.
+
+12. Penyimpanan Model
+
+Model Decision Tree yang telah dilatih disimpan menggunakan joblib.dump() dengan nama file:
+
+model_decision_tree.pkl
+
+File tersebut berisi objek model yang sudah dilatih sehingga dapat dimuat kembali untuk penggunaan berikutnya. Namun, notebook ini belum menyediakan aplikasi web, API prediksi, atau pipeline lengkap untuk memproses data baru secara otomatis.
+
+Struktur Proses
+
+Secara ringkas, alur pengerjaan pada notebook adalah:
+
+Memuat dan mengeksplorasi dataset.
+
+Memeriksa missing values.
+
+Memvisualisasikan dan menyaring outlier.
+
+Melakukan standardisasi serta menghapus duplikat.
+
+Melakukan encoding variabel kategorikal.
+
+Menganalisis distribusi dan korelasi.
+
+Memisahkan fitur dan target.
+
+Membagi data menjadi training dan testing.
+
+Melatih Decision Tree Classifier.
+
+Mengevaluasi hasil klasifikasi.
+
+Menyimpan model ke file .pkl.
+
+Catatan Teknis
+
+Dokumentasi ini mengikuti tahapan yang terdapat pada notebook. Ada beberapa hal yang perlu diperhatikan ketika hasilnya dikembangkan lebih lanjut:
+
+Dataset resmi UCI memiliki 4.424 observasi, sedangkan notebook menggunakan 948 observasi pada tahap pemodelan. Pengurangan jumlah data terjadi dalam alur preprocessing, terutama pada penyaringan outlier.
+
+Dataset dimuat ulang pada tahap analisis outlier sehingga preprocessing missing values sebelumnya tidak seluruhnya menjadi input tahap selanjutnya.
+
+Standardisasi dan penyaringan outlier dilakukan sebelum pembagian data training dan testing. Untuk evaluasi yang lebih ketat, tahapan preprocessing sebaiknya dipelajari hanya dari data latih menggunakan pipeline agar risiko data leakage dapat dikurangi.
+
+Kolom kategorikal diubah menggunakan Label Encoding, yang memberikan representasi angka pada kategori. Angka tersebut tidak selalu menunjukkan urutan atau jarak yang bermakna.
+
+File model .pkl saja belum mencakup seluruh langkah preprocessing yang dibutuhkan untuk menerima data baru secara konsisten.
+
+Catatan ini penting agar hasil eksperimen dapat dipahami dengan benar dan tidak dianggap sebagai sistem prediksi siap produksi.
+
+Kesimpulan
+
+Proyek ini menunjukkan penerapan dasar Machine Learning untuk klasifikasi status akademik mahasiswa menggunakan Decision Tree Classifier. Tahapannya mencakup eksplorasi data, preprocessing, visualisasi, encoding, pelatihan model, evaluasi, dan penyimpanan model.
+
+Model memperoleh akurasi sebesar 61,58% pada data uji yang digunakan di notebook. Hasil ini dapat dijadikan dasar untuk pembelajaran dan pengembangan lanjutan, terutama dalam perbaikan preprocessing, pengendalian data leakage, dan evaluasi model yang lebih menyeluruh.
+
+Referensi
+
+Realinho, V., Vieira Martins, M., Machado, J., & Baptista, L. (2021). Predict Students' Dropout and Academic Success. UCI Machine Learning Repository. https://doi.org/10.24432/C5MC89
+
+UCI Machine Learning Repository — https://archive.ics.uci.edu/dataset/697/predict+students+dropout+and+academic+success
